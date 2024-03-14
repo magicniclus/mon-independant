@@ -1,5 +1,8 @@
 "use client";
 
+import { Bars3Icon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+
 const NavBar = ({
   nav = true,
   connexion = true,
@@ -11,7 +14,7 @@ const NavBar = ({
   const pathParts = path.split("/"); // ['','ma-page']
   const valueAfterSlash = pathParts[1];
 
-  console.log(valueAfterSlash);
+  const [navIsActive, setNavIsActive] = useState(false);
 
   return (
     <>
@@ -49,61 +52,72 @@ const NavBar = ({
           background: #15803d;
         }
       `}</style>
-      <nav className="max-w-6xl mx-auto flex justify-between items-center py-4 text-slate-700">
-        <a className="text-green-700 text-lg" href="/">
-          Mon
-          <br />
-          independant.fr
-        </a>
-        {nav && (
-          <>
-            <ul className="flex justify-between items-center">
-              <li className="mr-7 under">
-                <a href="/devenir-auto-entrepreneur">
-                  <span
-                    className={`font-bold ${
-                      valueAfterSlash === "devenir-auto-entrepreneur" &&
-                      "text-green-700 underContinu"
-                    }`}
-                  >
-                    Devenir
-                  </span>{" "}
-                  <br /> auto-entrepreneur
-                </a>
-              </li>
-              <li className="mr-7 under">
-                <a href="#">
-                  <span className="font-bold">Modification</span> <br /> de
-                  votre situation
-                </a>
-              </li>
-              <li className="mr-7 under">
-                <a href="#">
-                  <span className="font-bold">Cession</span> <br /> de votre
-                  activité
-                </a>
-              </li>
-              <li className=" under">
-                <a href="#">
-                  <span className="font-bold">Gestion</span> <br /> de votre
-                  entreprise
-                </a>
-              </li>
-            </ul>
-            <a href="#" className="">
-              Nos tarifs
-            </a>
-          </>
-        )}
-        {connexion && (
-          <a
-            href="#"
-            className="py-1 px-5 border border-green-700 text-green-700 bg-green-50 rounded-full hover:bg-green-700 hover:border-white hover:text-white transition-all duration-300 ease-in-out"
-          >
-            Mon Espace
+      <header className="w-full md:bg-slate-100 relative">
+        <nav className="px-4 max-w-6xl mx-auto hidden md:flex justify-between items-center py-4 text-slate-700">
+          <a className="text-green-700 text-lg" href="/">
+            Mon
+            <br />
+            independant.fr
           </a>
-        )}
-      </nav>
+          {nav && (
+            <>
+              <ul className="flex justify-between items-center">
+                <li className="mr-7 under">
+                  <a href="/devenir-auto-entrepreneur">
+                    <span
+                      className={`font-bold ${
+                        valueAfterSlash === "devenir-auto-entrepreneur" &&
+                        "text-green-700 underContinu"
+                      }`}
+                    >
+                      Devenir
+                    </span>{" "}
+                    <br /> auto-entrepreneur
+                  </a>
+                </li>
+                <li className="mr-7 under">
+                  <a href="#">
+                    <span className="font-bold">Modification</span> <br /> de
+                    votre situation
+                  </a>
+                </li>
+                <li className="mr-7 under">
+                  <a href="#">
+                    <span className="font-bold">Cession</span> <br /> de votre
+                    activité
+                  </a>
+                </li>
+                <li className=" under">
+                  <a href="#">
+                    <span className="font-bold">Gestion</span> <br /> de votre
+                    entreprise
+                  </a>
+                </li>
+              </ul>
+              <a href="#" className="">
+                Nos tarifs
+              </a>
+            </>
+          )}
+          {connexion && (
+            <a
+              href="#"
+              className="py-1 px-5 border border-green-700 text-green-700 bg-green-50 rounded-full hover:bg-green-700 hover:border-white hover:text-white transition-all duration-300 ease-in-out"
+            >
+              Mon Espace
+            </a>
+          )}
+        </nav>
+        <div>
+          <nav
+            className={`md:hidden flex max-w-full w-[300px] fixed right-0 justify-end`}
+          >
+            <div className="">
+              <Bars3Icon className="w-6" />
+            </div>
+          </nav>
+        </div>
+      </header>
     </>
   );
 };

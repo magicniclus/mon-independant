@@ -1,4 +1,5 @@
 // import NavBar from "../../../components/NavBar";
+import Hero from "@/components/Hero";
 import NavBar from "../../../components/TailwindUi/NavBar";
 
 const page = () => {
@@ -6,7 +7,9 @@ const page = () => {
     <>
       <NavBar />
       {/* <NavBar nav={true} connexion={true} /> */}
-      <main></main>
+      <main>
+        <Hero />
+      </main>
     </>
   );
 };

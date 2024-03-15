@@ -1,7 +1,9 @@
+import NavBar from "@/components/TailwindUi/NavBar";
+
 const page = () => {
   return (
     <>
-      <header className="w-full bg-slate-200"></header>
+      <NavBar />
       <main></main>
     </>
   );

@@ -3,7 +3,7 @@
 
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const navigation = [
   { name: "Devenir auto-entrepreneur", href: "#" },
@@ -14,9 +14,15 @@ const navigation = [
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [path, setPath] = useState("");
 
-  const path = window.location.pathname; // '/ma-page'
-  const pathParts = path.split("/"); // ['','ma-page']
+  useEffect(() => {
+    // This code runs only on the client side
+    const currentPath = window.location.pathname; // Now safe to access window
+    setPath(currentPath);
+  }, []); // Empty array ensures this runs once on mount
+
+  const pathParts = path.split("/"); // Split the path
   const valueAfterSlash = pathParts[1];
 
   return (

@@ -1,9 +1,11 @@
-import NavBar from "../../../components/NavBar";
+// import NavBar from "../../../components/NavBar";
+import NavBar from "../../../components/TailwindUi/NavBar";
 
 const page = () => {
   return (
     <>
-      <NavBar nav={true} connexion={true} />
+      <NavBar />
+      {/* <NavBar nav={true} connexion={true} /> */}
       <main></main>
     </>
   );

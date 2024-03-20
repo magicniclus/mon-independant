@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/TailwindUi/NavBar";
 
 const page = () => {
   return (

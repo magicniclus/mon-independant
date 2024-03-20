@@ -1,7 +1,8 @@
 "use client";
 
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NavBar = ({
   nav = true,
@@ -10,9 +11,13 @@ const NavBar = ({
   nav?: boolean;
   connexion?: boolean;
 }) => {
-  const path = window.location.pathname; // '/ma-page'
-  const pathParts = path.split("/"); // ['','ma-page']
-  const valueAfterSlash = pathParts[1];
+  const [valueAfterSlash, setValueAfterSlash] = useState("");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const pathParts = pathname.split("/");
+    setValueAfterSlash(pathParts[1] || "");
+  }, [pathname]);
 
   const [navIsActive, setNavIsActive] = useState(false);
 

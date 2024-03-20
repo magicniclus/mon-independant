@@ -6,7 +6,6 @@ const page = () => {
   return (
     <>
       <NavBar />
-      {/* <NavBar nav={true} connexion={true} /> */}
       <main>
         <Hero />
       </main>

@@ -66,12 +66,12 @@ const NavBar = () => {
           className="mx-auto flex max-w-6xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
-          <div className="flex lg:flex-1">
+          <div className="flex lg:flex-1 mr-16">
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Mon-independant.fr</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=700"
+                className="h-12 w-auto"
+                src="/logoWithName.png"
                 alt="mon-independant.fr"
               />
             </a>
@@ -138,9 +138,9 @@ const NavBar = () => {
               <a href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Mon independant</span>
                 <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=700"
-                  alt="Mon independant"
+                  className="h-12 w-auto"
+                  src="/logoWithName.png"
+                  alt="mon-independant.fr"
                 />
               </a>
               <button

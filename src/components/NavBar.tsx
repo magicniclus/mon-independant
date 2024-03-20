@@ -59,11 +59,11 @@ const NavBar = ({
       `}</style>
       <header className="w-full md:bg-slate-100 relative">
         <nav className="px-4 max-w-6xl mx-auto hidden md:flex justify-between items-center py-4 text-slate-700">
-          <a className="text-green-700 text-lg" href="/">
-            Mon
-            <br />
-            independant.fr
-          </a>
+          <img
+            className="h-12 w-auto"
+            src="/logoWithName.png"
+            alt="mon-independant.fr"
+          />
           {nav && (
             <>
               <ul className="flex justify-between items-center">

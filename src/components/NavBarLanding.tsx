@@ -23,25 +23,22 @@ const NavBarLanding = () => {
           aria-label="Global"
         >
           <div className="flex">
-            <a href="/" className="-m-1.5 p-1.5">
+            <div className="-m-1.5 p-1.5">
               <span className="sr-only">Mon-independant.fr</span>
               <img
                 className="h-12 w-auto"
                 src="/logoWithName.png"
                 alt="mon-independant.fr"
               />
-            </a>
+            </div>
           </div>
           <div className="flex items-center justify-center relative lign mx-10">
             <PhoneIcon className="h-6 w-6 text-green-700 mr-4" />
             <div className="flex flex-col justify-between">
-              <a
-                href="tel:0979797903"
-                className="text-md font-semibold text-green-700"
-              >
+              <a href="tel:0979797903" className="font-semibold text-green-700">
                 09 79 79 79 03
               </a>
-              <p className="text-xs">Du lundi au vendredi de 9h à 19h</p>
+              <p className="text-xs">Du lundi au vendredi - de 9h à 19h</p>
             </div>
           </div>
         </nav>

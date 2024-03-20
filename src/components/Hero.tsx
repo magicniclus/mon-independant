@@ -1,8 +1,76 @@
 "use client";
 
 import { CheckBadgeIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../redux/createUserSlice";
 
 const Hero = () => {
+  const dispatch = useDispatch();
+
+  const [formValues, setFormValues] = useState({
+    nom: "",
+    prenom: "",
+    email: "",
+    cgu: false,
+  });
+
+  const [disabled, setDisabled] = useState(true);
+
+  const route = useRouter();
+
+  const nameRegex = /^[A-Za-z]{2,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  useEffect(() => {
+    const isFormValid =
+      nameRegex.test(formValues.nom) &&
+      nameRegex.test(formValues.prenom) &&
+      emailRegex.test(formValues.email) &&
+      formValues.cgu;
+    setDisabled(!isFormValid);
+  }, [formValues, nameRegex, emailRegex]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, type } = e.target;
+    const value = type === "checkbox" ? e.target.checked : e.target.value;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!nameRegex.test(formValues.nom) || !nameRegex.test(formValues.prenom)) {
+      alert(
+        "Le nom et le prénom doivent contenir au moins deux lettres et aucun chiffre."
+      );
+      return;
+    }
+
+    if (!emailRegex.test(formValues.email)) {
+      alert("Veuillez saisir une adresse email valide.");
+      return;
+    }
+
+    if (!formValues.cgu) {
+      alert(
+        "Vous devez accepter les conditions générales de vente ainsi que la politique de confidentialité."
+      );
+      return;
+    }
+
+    // Dispatch l'action pour stocker les informations de l'utilisateur
+    dispatch(
+      setUserInfo({
+        nom: formValues.nom,
+        prenom: formValues.prenom,
+        email: formValues.email,
+      })
+    );
+    // route.push("/devenir-auto-entrepreneur/declaration");
+  };
+
   return (
     <>
       <style jsx>{`
@@ -45,7 +113,10 @@ const Hero = () => {
             </ul>
           </div>
           <div className="md:w-1/2 w-full flex justify-center">
-            <form className="md:w-[80%] w-full py-8 bg-white md:bg-white/85 rounded-md px-5 md:px-8 flex-col items-center md:mt-0 mt-7">
+            <form
+              className="md:w-[80%] w-full py-8 bg-white md:bg-white/85 rounded-md px-5 md:px-8 flex-col items-center md:mt-0 mt-7"
+              onSubmit={handleSubmit}
+            >
               <h2 className="text-center font-semibold w-9/12 mx-auto">
                 Formulaire de démarche en ligne simplifié
               </h2>
@@ -55,6 +126,8 @@ const Hero = () => {
                     Nom
                   </label>
                   <input
+                    name="nom"
+                    onChange={handleChange}
                     type="text"
                     placeholder="Votre nom"
                     className="w-full border px-2 py-1 rounded-md border-slate-400 mt-2"
@@ -65,6 +138,8 @@ const Hero = () => {
                     Prénom
                   </label>
                   <input
+                    name="prenom"
+                    onChange={handleChange}
                     type="text"
                     placeholder="Votre prénom"
                     className="w-full border px-2 py-1 rounded-md border-slate-400 mt-2"
@@ -76,6 +151,8 @@ const Hero = () => {
                   Prénom
                 </label>
                 <input
+                  name="prenom"
+                  onChange={handleChange}
                   type="text"
                   placeholder="Votre prénom"
                   className="w-full border px-2 py-1 rounded-md border-slate-400 mt-2"
@@ -86,6 +163,8 @@ const Hero = () => {
                   Email
                 </label>
                 <input
+                  name="email"
+                  onChange={handleChange}
                   type="email"
                   placeholder="Votre email"
                   className="w-full border px-2 py-1 rounded-md border-slate-400 mt-2"
@@ -96,14 +175,22 @@ const Hero = () => {
                   type="checkbox"
                   id="cgu"
                   name="cgu"
+                  onChange={handleChange}
                   className="mr-2 cursor-pointer"
                 />
                 <label htmlFor="cgu" className="text-slate-700 ml-2 text-xs">
-                  J&apos;accepte les conditions générales de vente ainsi que la
-                  politique de confidentialité
+                  J&apos;accepte les{" "}
+                  <a href="#">conditions générales de vente</a> ainsi que la
+                  <a href="#">politique de confidentialité</a>.
                 </label>
               </div>
-              <button className="bg-green-700 text-white w-full py-2 rounded-md mt-5 hover:bg-green-700/70 transition duration-150 easeInOut">
+              <button
+                disabled={disabled}
+                type="submit"
+                className={`${
+                  disabled ? "bg-green-700/70" : "bg-green-700"
+                }  text-white w-full py-2 rounded-md mt-5 hover:bg-green-700/70 transition duration-150 easeInOut`}
+              >
                 Créer mon auto-entreprise
               </button>
             </form>

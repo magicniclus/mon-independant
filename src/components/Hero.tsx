@@ -68,7 +68,7 @@ const Hero = () => {
         email: formValues.email,
       })
     );
-    // route.push("/devenir-auto-entrepreneur/declaration");
+    route.push("/devenir-auto-entrepreneur/declaration");
   };
 
   return (

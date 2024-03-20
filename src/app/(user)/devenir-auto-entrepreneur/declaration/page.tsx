@@ -1,9 +1,9 @@
-import NavBar from "@/components/TailwindUi/NavBar";
+import NavBarLanding from "@/components/NavBarLanding";
 
 const page = () => {
   return (
     <>
-      <NavBar />
+      <NavBarLanding />
       <main></main>
     </>
   );

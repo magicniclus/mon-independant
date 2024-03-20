@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { PhoneIcon } from "@heroicons/react/24/outline";
@@ -16,7 +17,7 @@ const NavBarLanding = () => {
           background-color: #c2c2c2;
         }
       `}</style>
-      <header className="bg-white text-gray-700">
+      <header className="bg-white text-slate-700">
         <nav
           className="mx-auto flex max-w-6xl items-center p-6 lg:px-8"
           aria-label="Global"
@@ -25,8 +26,8 @@ const NavBarLanding = () => {
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Mon-independant.fr</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=700"
+                className="h-12 w-auto"
+                src="/logoWithName.png"
                 alt="mon-independant.fr"
               />
             </a>

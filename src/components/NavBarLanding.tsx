@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { PhoneIcon } from "@heroicons/react/24/outline";
+import { PhoneIcon } from "@heroicons/react/20/solid";
 
 const NavBarLanding = () => {
   return (
@@ -35,7 +35,10 @@ const NavBarLanding = () => {
           <div className="flex items-center justify-center relative lign mx-10">
             <PhoneIcon className="h-6 w-6 text-green-700 mr-4" />
             <div className="flex flex-col justify-between">
-              <a href="tel:0979797903" className="font-semibold text-green-700">
+              <a
+                href="tel:0979797903"
+                className="font-semibold text-sm text-green-700"
+              >
                 09 79 79 79 03
               </a>
               <p className="text-xs">Du lundi au vendredi - de 9h à 19h</p>

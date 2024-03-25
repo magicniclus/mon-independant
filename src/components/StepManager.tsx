@@ -57,6 +57,17 @@ const StepManager = () => {
     }
   };
 
+  const handleForm = () => {
+    switch (step) {
+      case 1:
+        return <Coordonnee />;
+      case 2:
+        return <Coordonnee />;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     handleDisabled();
   }, [formValues]);

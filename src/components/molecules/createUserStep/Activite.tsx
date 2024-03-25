@@ -729,9 +729,11 @@ const Activite = () => {
           <label htmlFor="debutActivite" className="text-slate-700 text-sm">
             Date de début d&apos;activité
           </label>
-          <div className="flex justify-between items-center">
+          <div className="w-full flex flex-col">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DateField"]}>
+              <DemoContainer
+                components={["DateField", "DateField", "DateField"]}
+              >
                 <DateField
                   value={formValues.debutActivite}
                   onChange={handleDateChange}
@@ -739,25 +741,26 @@ const Activite = () => {
                   minDate={minDate} // Converti en Date JavaScript
                   maxDate={maxDate} // Converti en Date JavaScript
                   sx={{
-                    "& .MuiInputBase-input, & .MuiOutlinedInput-input": {
-                      padding: "8px !important",
-                    },
-                    "& .MuiInputBase-root": {
+                    "& .MuiInputBase-root, & .MuiOutlinedInput-root": {
+                      width: "100%", // Assure que le composant s'étend à 100%
                       border: "0.05px solid #94a3b8",
                       borderRadius: "0.4rem",
                       color: "#64748b",
                       "&:hover": {
                         borderColor: "#64748b",
                       },
-                      "&:focus": {
+                      "&.Mui-focused": {
                         borderColor: "#64748b",
                       },
+                    },
+                    "& .MuiInputBase-input, & .MuiOutlinedInput-input": {
+                      padding: "8px !important",
                     },
                   }}
                 />
               </DemoContainer>
             </LocalizationProvider>
-            <p className="text-xs w-7/12">
+            <p className="text-xs w-7/12 mt-1">
               Entre le {minDate.format("DD/MM/YYYY")} et{" "}
               {maxDate.format("DD/MM/YYYY")}.
             </p>

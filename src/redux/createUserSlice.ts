@@ -6,6 +6,14 @@ const initialState = {
     nom: "",
     prenom: "",
     email: "",
+    telephone: "",
+    sexe: "",
+    dateDeNaissance: "",
+    nationnalite: "Française",
+    departement: "",
+    paysDeNaissance: "France",
+    paysDeNaissanceEtranger: "",
+    villeDeNaissance: "",
   },
 };
 
@@ -13,15 +21,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // Action pour mettre à jour les informations de l'utilisateur
-    setUserInfo(
-      state,
-      action: PayloadAction<{ nom: string; prenom: string; email: string }>
-    ) {
-      const { nom, prenom, email } = action.payload;
-      state.userInfo.nom = nom;
-      state.userInfo.prenom = prenom;
-      state.userInfo.email = email;
+    setUserInfo(state, action: PayloadAction<typeof initialState.userInfo>) {
+      console.log("Action received in reducer:", action);
+      // Mise à jour de chaque champ dans l'état
+      Object.assign(state.userInfo, action.payload);
     },
   },
 });

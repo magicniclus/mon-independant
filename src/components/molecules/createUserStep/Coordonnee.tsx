@@ -5,6 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -46,6 +47,7 @@ const Coordonnee = () => {
     nationnalite: "",
     departement: "",
     paysDeNaissance: "",
+    dateDeNaissance: "",
     paysDeNaissanceEtranger: "",
     villeDeNaissance: "",
   });
@@ -86,6 +88,22 @@ const Coordonnee = () => {
   };
 
   const handleDateChange = (newValue: string) => {
+    const today = dayjs();
+    const birthdate = dayjs(newValue);
+    const age = today.diff(birthdate, "year");
+
+    if (age < 18) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        dateDeNaissance: "Vous devez avoir au moins 18 ans.",
+      }));
+    } else {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        dateDeNaissance: "",
+      }));
+    }
+
     setFormValues((prevValues) => ({
       ...prevValues,
       dateDeNaissance: newValue,
@@ -287,6 +305,11 @@ const Coordonnee = () => {
             />
           </DemoContainer>
         </LocalizationProvider>
+        {formErrors.dateDeNaissance && (
+          <p className="text-red-500 text-xs mt-1">
+            {formErrors.dateDeNaissance}
+          </p>
+        )}
       </div>
       <div className="w-full flex flex-col mt-5">
         <label htmlFor="dateDeNaissance" className="text-slate-700">

@@ -15,6 +15,7 @@ const initialState = {
     paysDeNaissanceEtranger: "",
     villeDeNaissance: "",
   },
+  stepCreationCompte: 1,
 };
 
 const userSlice = createSlice({

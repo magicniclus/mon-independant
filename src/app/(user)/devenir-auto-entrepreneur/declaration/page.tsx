@@ -1,3 +1,5 @@
+"use client";
+
 import Banner from "@/components/Banner";
 import NavBarLanding from "@/components/NavBarLanding";
 import Step from "@/components/Step";

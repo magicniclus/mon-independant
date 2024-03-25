@@ -36,7 +36,7 @@ const Step = () => {
           </div>
           <p className="ml-3 text-sm text-slate-400">Adresse</p>
         </div>
-        <div className="flex items-center mt-5">
+        {/* <div className="flex items-center mt-5">
           <div className="w-4 h-4 flex justify-center items-center bg-slate-50 rounded-full border">
             <CheckIcon className="h-3 w-3 text-white" />
           </div>
@@ -47,7 +47,7 @@ const Step = () => {
             <CheckIcon className="h-3 w-3 text-white" />
           </div>
           <p className="ml-3 text-sm text-slate-400">Commande</p>
-        </div>
+        </div> */}
         <div className="flex items-center mt-5">
           <div className="w-4 h-4 flex justify-center items-center bg-slate-50 rounded-full border">
             <CheckIcon className="h-3 w-3 text-white" />

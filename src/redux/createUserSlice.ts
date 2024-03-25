@@ -23,9 +23,12 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserInfo(state, action: PayloadAction<typeof initialState.userInfo>) {
-      console.log("Action received in reducer:", action);
       // Mise à jour de chaque champ dans l'état
       Object.assign(state.userInfo, action.payload);
+    },
+    initializeCompte(state) {
+      // Réinitialisation de l'état
+      state.stepCreationCompte = 1;
     },
     incrementStep(state) {
       state.stepCreationCompte += 1;
@@ -39,6 +42,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserInfo, incrementStep, decrementStep } = userSlice.actions;
+export const { setUserInfo, incrementStep, decrementStep, initializeCompte } =
+  userSlice.actions;
 
 export default userSlice.reducer;

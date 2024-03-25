@@ -8,25 +8,6 @@ import dayjs from "dayjs";
 import { useState } from "react";
 
 const Activite = () => {
-  const allActivites = [
-    "Achat-Revente",
-    "Apporteur d'affaires",
-    "Artisanat (Création, Réparation, Fabrication)",
-    "Bâtiment, Gros oeuvre,Second oeuvre",
-    "Beauté, Bien-être, Esotérisme",
-    "Conseil, Expertise, Conseil aux entreprises",
-    "Cours, formation",
-    "Culture, Animation, Sports et Spectacles",
-    "Hôtellerie-Restauration, Tourisme",
-    "Location d'équipements et de matériel",
-    "Mécanique / Technique",
-    "Médical / Santé",
-    "Services à la personne et aux animaux",
-    "Transport / Livraison / Logistique",
-    "Web / Informatique / Multimédias",
-    "Je ne trouve pas mon domaine d’activité",
-  ];
-
   const objectActivites = {
     "Achat-Revente": [
       "Achat-Vente d'accessoires de mode",
@@ -473,67 +454,63 @@ const Activite = () => {
       "Je ne trouve pas mon activité...",
     ],
     "Hôtellerie-Restauration, Tourisme": [
-      [
-        "Barman",
-        "Boucherie",
-        "Boulangerie",
-        "Charcuterie",
-        "Chef cuisinier au domicile des clients avec consommation sur place",
-        "Commis de cuisine",
-        "Consultant en tourisme",
-        "Cuisinier",
-        "Exploitant de bar",
-        "Fabrication de biscuits",
-        "Fabrication de chichis et churros",
-        "Fabrication de confiseries",
-        "Fabrication de confitures, compotes, gelées",
-        "Fabrication de pâtisseries fraîches",
-        "Fabrication de pâtisseries sèches",
-        "Fabrication de plats cuisinés à emporter",
-        "Friterie ambulante",
-        "Guide touristique",
-        "Location de chambres d'hôtes avec prestations para-hôtelières",
-        "Location de meublé de tourisme sans prestation para-hôtelières",
-        "Organisation et planification de voyages organisés",
-        "Pizzeria traditionnelle (consommation principalement sur place)",
-        "Plongeur",
-        "Préparation de frites",
-        "Préparation de pizza à emporter",
-        "Prestations d’extra dans la restauration (serveur, barman, etc...)",
-        "Restaurant traditionnel (consommation sur place avec débit de boissons)",
-        "Restaurant traditionnel (consommation sur place sans débit de boissons)",
-        "Salon de thé",
-        "Sandwicherie, snack à emporter (avec débit de boissons)",
-        "Sandwicherie, snack à emporter (sans débit de boissons)",
-        "Sandwicherie, snack sur place (avec débit de boissons)",
-        "Sandwicherie, snack sur place (sans débit de boissons)",
-        "Serveur",
-        "Service de traiteurs avec vente de boisson alcoolisées",
-        "Service de traiteurs sans vente de boisson alcoolisées",
-        "Soutien aux entreprises dans le domaine de la restauration",
-        "Vente de Frites",
-        "Vente de parcours et séjours touristiques",
-        "Vente de produits alimentaires sur les marchés",
-        "Je ne trouve pas mon activité...",
-      ],
+      "Barman",
+      "Boucherie",
+      "Boulangerie",
+      "Charcuterie",
+      "Chef cuisinier au domicile des clients avec consommation sur place",
+      "Commis de cuisine",
+      "Consultant en tourisme",
+      "Cuisinier",
+      "Exploitant de bar",
+      "Fabrication de biscuits",
+      "Fabrication de chichis et churros",
+      "Fabrication de confiseries",
+      "Fabrication de confitures, compotes, gelées",
+      "Fabrication de pâtisseries fraîches",
+      "Fabrication de pâtisseries sèches",
+      "Fabrication de plats cuisinés à emporter",
+      "Friterie ambulante",
+      "Guide touristique",
+      "Location de chambres d'hôtes avec prestations para-hôtelières",
+      "Location de meublé de tourisme sans prestation para-hôtelières",
+      "Organisation et planification de voyages organisés",
+      "Pizzeria traditionnelle (consommation principalement sur place)",
+      "Plongeur",
+      "Préparation de frites",
+      "Préparation de pizza à emporter",
+      "Prestations d’extra dans la restauration (serveur, barman, etc...)",
+      "Restaurant traditionnel (consommation sur place avec débit de boissons)",
+      "Restaurant traditionnel (consommation sur place sans débit de boissons)",
+      "Salon de thé",
+      "Sandwicherie, snack à emporter (avec débit de boissons)",
+      "Sandwicherie, snack à emporter (sans débit de boissons)",
+      "Sandwicherie, snack sur place (avec débit de boissons)",
+      "Sandwicherie, snack sur place (sans débit de boissons)",
+      "Serveur",
+      "Service de traiteurs avec vente de boisson alcoolisées",
+      "Service de traiteurs sans vente de boisson alcoolisées",
+      "Soutien aux entreprises dans le domaine de la restauration",
+      "Vente de Frites",
+      "Vente de parcours et séjours touristiques",
+      "Vente de produits alimentaires sur les marchés",
+      "Je ne trouve pas mon activité...",
     ],
     "Location d'équipements et de matériel": [
-      [
-        "Location d'articles de sport et de loisirs",
-        "Location d'outillages divers",
-        "Location de bateaux",
-        "Location de costumes et articles de fête",
-        "Location de cycles",
-        "Location de matériel audiovisuel",
-        "Location de matériel de chantier",
-        "Location de matériel informatique",
-        "Location de mobilier pour événements divers (séminaires, réceptions, ...)",
-        "Location de structures gonflables",
-        "Location de véhicules motorisés avec chauffeur",
-        "Location de véhicules motorisés sans chauffeur",
-        "Location de vêtements et accessoires",
-        "Je ne trouve pas mon activité...",
-      ],
+      "Location d'articles de sport et de loisirs",
+      "Location d'outillages divers",
+      "Location de bateaux",
+      "Location de costumes et articles de fête",
+      "Location de cycles",
+      "Location de matériel audiovisuel",
+      "Location de matériel de chantier",
+      "Location de matériel informatique",
+      "Location de mobilier pour événements divers (séminaires, réceptions, ...)",
+      "Location de structures gonflables",
+      "Location de véhicules motorisés avec chauffeur",
+      "Location de véhicules motorisés sans chauffeur",
+      "Location de vêtements et accessoires",
+      "Je ne trouve pas mon activité...",
     ],
     "Mécanique / Technique": [
       "Carrosserie automobile",
@@ -712,17 +689,21 @@ const Activite = () => {
   const [formValues, setFormValues] = useState<{
     debutActivite: dayjs.Dayjs | null;
     activite: string;
+    activitePrincipale: string;
   }>({
     debutActivite: currentDate,
     activite: "",
+    activitePrincipale: "",
   });
 
   const [formErrors, setFormErrors] = useState<{
     debutActivite: string;
     activite: string;
+    activitePrincipale: string;
   }>({
     debutActivite: "",
     activite: "",
+    activitePrincipale: "",
   });
 
   const minDate = dayjs().subtract(6, "month");
@@ -740,8 +721,6 @@ const Activite = () => {
       setFormValues({ ...formValues, debutActivite: newValue });
     }
   };
-
-  const handleChangeActivite = () => {};
 
   return (
     <>
@@ -818,6 +797,42 @@ const Activite = () => {
             <p className="text-red-500 text-xs mt-1">{formErrors.activite}</p>
           )}
         </div>
+        {formValues.activite &&
+          formValues.activite !== "Je ne trouve pas mon domaine d’activité" && (
+            <div className="w-full w-full mt-5">
+              <label htmlFor="activite" className="text-slate-700 text-sm">
+                Activité principale
+              </label>
+              <select
+                name="activitePrincipale"
+                id="activitePrincipale"
+                className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2  hover:border-slate-500 focus:border-slate-500 text-sm"
+                value={formValues.activitePrincipale}
+                onChange={(event) =>
+                  setFormValues({
+                    ...formValues,
+                    activitePrincipale: event.target.value,
+                  })
+                }
+              >
+                <option value="" disabled>
+                  Sélectionnez votre nouvelle activité
+                </option>
+                {objectActivites[
+                  formValues.activite as keyof typeof objectActivites
+                ]?.map((activite) => (
+                  <option key={activite.toString()} value={activite}>
+                    {activite}
+                  </option>
+                ))}
+              </select>
+              {formErrors.activite && (
+                <p className="text-red-500 text-xs mt-1">
+                  {formErrors.activitePrincipale}
+                </p>
+              )}
+            </div>
+          )}
       </div>
     </>
   );

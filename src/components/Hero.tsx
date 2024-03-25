@@ -53,19 +53,20 @@ const Hero = () => {
       return;
     }
 
-    if (!formValues.cgu) {
-      alert(
-        "Vous devez accepter les conditions générales de vente ainsi que la politique de confidentialité."
-      );
-      return;
-    }
-
     // Dispatch l'action pour stocker les informations de l'utilisateur
     dispatch(
       setUserInfo({
         nom: formValues.nom,
         prenom: formValues.prenom,
         email: formValues.email,
+        telephone: "",
+        sexe: "",
+        dateDeNaissance: "",
+        nationnalite: "",
+        departement: "",
+        paysDeNaissance: "",
+        paysDeNaissanceEtranger: "",
+        villeDeNaissance: "",
       })
     );
     route.push("/devenir-auto-entrepreneur/declaration");

@@ -97,17 +97,19 @@ const Coordonnee = () => {
         ...prevErrors,
         dateDeNaissance: "Vous devez avoir au moins 18 ans.",
       }));
+      // Dispatch avec dateDeNaissance vide si l'utilisateur a moins de 18 ans
+      const updatedFormValues = { ...formValues, dateDeNaissance: "" };
+      setFormValues(updatedFormValues);
+      dispatch(setUserInfo(updatedFormValues));
     } else {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
         dateDeNaissance: "",
       }));
+      const updatedFormValues = { ...formValues, dateDeNaissance: newValue };
+      setFormValues(updatedFormValues);
+      dispatch(setUserInfo(updatedFormValues));
     }
-
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      dateDeNaissance: newValue,
-    }));
   };
 
   // Fonction modifiée pour gérer les changements d'autres champs
@@ -144,7 +146,6 @@ const Coordonnee = () => {
   };
 
   useEffect(() => {
-    console.log(formValues);
     if (
       (formValues.nom &&
         formValues.prenom &&

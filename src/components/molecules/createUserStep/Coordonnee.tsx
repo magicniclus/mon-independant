@@ -71,12 +71,18 @@ const Coordonnee = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { value } = event.target;
-    setFormValues((prev) => ({
-      ...prev,
+    let updatedFormValues = {
+      ...formValues,
       paysDeNaissance: value,
-      // Réinitialise le champ du pays de naissance si on sélectionne "France"
       nationnalite: value === "France" ? "Française" : "",
-    }));
+      // Réinitialiser les valeurs en dessous de l'option de nationalité
+      departement: "",
+      paysDeNaissanceEtranger: "",
+      villeDeNaissance: "",
+    };
+
+    setFormValues(updatedFormValues);
+    dispatch(setUserInfo(updatedFormValues)); // Assurez-vous également de mettre à jour le store Redux
   };
 
   const handleDateChange = (newValue: string) => {
@@ -89,8 +95,10 @@ const Coordonnee = () => {
   // Fonction modifiée pour gérer les changements d'autres champs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    const newFormValues = { ...formValues, [name]: value };
+    setFormValues(newFormValues);
     validateField(name, value);
+    dispatch(setUserInfo(newFormValues));
   };
 
   const validateField = (name: string, value: string) => {
@@ -362,7 +370,7 @@ const Coordonnee = () => {
               <input
                 name="nationnalite"
                 onChange={handleChange}
-                value={formValues.nationnalite || "Francaise"}
+                value={formValues.nationnalite}
                 type="text"
                 placeholder="Nationnalité"
                 className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"
@@ -395,16 +403,13 @@ const Coordonnee = () => {
               )}
             </div>
             <div className="w-full mt-5">
-              <label
-                htmlFor="villeDeNaissance"
-                className="text-slate-700 text-sm"
-              >
+              <label htmlFor="nationnalite" className="text-slate-700 text-sm">
                 Nationnalité
               </label>
               <input
                 name="nationnalite"
                 onChange={handleChange}
-                value={formValues.nationnalite || "Francaise"}
+                value={formValues.nationnalite}
                 type="text"
                 placeholder="Nationnalité"
                 className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"

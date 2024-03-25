@@ -89,7 +89,17 @@ const Step = () => {
           </AccordionItem>
         </Accordion>
       </div>
-      <div className="w-full bg-slate-50 h-max px-6 lg:px-8 rounded-md py-5 mt-10">
+      <div className="w-full bg-slate-50 h-max rounded-md py-3 mt-10">
+        <div className="px-6 lg:px-8 flex flex-col">
+          <h2 className="text-sm">
+            <span className="text-green-700 font-semibold">
+              +1 051 000 <br />
+            </span>{" "}
+            auto-entreprises créées en 2023
+          </h2>
+        </div>
+      </div>
+      <div className="w-full bg-slate-50 h-max px-6 lg:px-8 rounded-md py-5 mt-5">
         <h2 className="text-sm">Une Question ?</h2>
         <div className="flex relative lign items-center mt-5">
           <PhoneIcon className="h-4 w-4 mr-4" />
@@ -111,16 +121,6 @@ const Step = () => {
             </a>
             <p className="text-xs">Du lundi au vendredi - de 9h à 19h</p>
           </div>
-        </div>
-      </div>
-      <div className="w-full bg-slate-50 h-max rounded-md py-3 mt-5">
-        <div className="px-6 lg:px-8 flex flex-col">
-          <h2 className="text-sm">
-            <span className="text-green-700 font-semibold">
-              +1 051 000 <br />
-            </span>{" "}
-            auto-entreprises créées en 2023
-          </h2>
         </div>
       </div>
     </section>

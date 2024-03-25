@@ -1,11 +1,14 @@
 "use client";
 
+import { incrementStep, initializeCompte } from "@/redux/createUserSlice";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Activite from "./molecules/createUserStep/Activite";
 import Coordonnee from "./molecules/createUserStep/Coordonnee";
 
 const StepManager = () => {
+  const dispatch = useDispatch();
   const [disabled, setDisabled] = useState(true);
   const step = useSelector(
     (state: RootState) => state.createUser.stepCreationCompte
@@ -14,6 +17,13 @@ const StepManager = () => {
   const formValues = useSelector(
     (state: RootState) => state.createUser.userInfo
   );
+
+  const initializeDispatch = () => {
+    if (formValues.prenom && formValues.nom && formValues.email) return;
+    dispatch(initializeCompte());
+  };
+
+  initializeDispatch();
 
   const handleDisabled = () => {
     switch (step) {
@@ -57,15 +67,21 @@ const StepManager = () => {
     }
   };
 
+  useEffect(() => {}, [step]);
+
   const handleForm = () => {
     switch (step) {
       case 1:
         return <Coordonnee />;
       case 2:
-        return <Coordonnee />;
+        return <Activite />;
       default:
         break;
     }
+  };
+
+  const handleStep = () => {
+    dispatch(incrementStep());
   };
 
   useEffect(() => {
@@ -75,10 +91,11 @@ const StepManager = () => {
   return (
     <section className="md:w-7/12 w-full">
       <form className="px-6 lg:px-8 text-slate-700 flex flex-col">
-        {<Coordonnee />}
+        {handleForm()}
         <button
           type="button"
           disabled={disabled}
+          onClick={handleStep}
           className={`${
             disabled ? "bg-green-700/70" : "bg-green-700"
           }  text-white w-full py-2 rounded-md mt-10 hover:bg-green-700/70 transition duration-150 easeInOut`}

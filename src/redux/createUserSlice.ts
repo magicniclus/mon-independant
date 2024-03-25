@@ -27,9 +27,18 @@ const userSlice = createSlice({
       // Mise à jour de chaque champ dans l'état
       Object.assign(state.userInfo, action.payload);
     },
+    incrementStep(state) {
+      state.stepCreationCompte += 1;
+    },
+    decrementStep(state) {
+      // Assurez-vous que le step ne descend pas en dessous de 1
+      if (state.stepCreationCompte > 1) {
+        state.stepCreationCompte -= 1;
+      }
+    },
   },
 });
 
-export const { setUserInfo } = userSlice.actions;
+export const { setUserInfo, incrementStep, decrementStep } = userSlice.actions;
 
 export default userSlice.reducer;

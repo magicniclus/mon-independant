@@ -1,14 +1,17 @@
 "use client";
 
+import { setUserInfo } from "@/redux/createUserSlice";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
 const Coordonnee = () => {
+  const dispatch = useDispatch();
+
   const userNom = useSelector(
     (state: RootState) => state.createUser.userInfo.nom
   );
@@ -27,10 +30,23 @@ const Coordonnee = () => {
     email: "",
     telephone: "",
     sexe: "",
-    dateDeNaissance: null as string | null,
+    dateDeNaissance: "",
+    nationnalite: "Française",
+    departement: "",
+    paysDeNaissance: "France",
+    paysDeNaissanceEtranger: "",
+    villeDeNaissance: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    nom: "",
+    prenom: "",
+    email: "",
+    telephone: "",
     nationnalite: "",
     departement: "",
     paysDeNaissance: "",
+    paysDeNaissanceEtranger: "",
     villeDeNaissance: "",
   });
 
@@ -51,18 +67,82 @@ const Coordonnee = () => {
     setFormValues((prev) => ({ ...prev, sexe: e.target.value }));
   };
 
-  const handlePaysNaissanceChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+  const handlePaysDeNaissanceChange = (
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // Mettre à jour directement la valeur de paysDeNaissance
-    setFormValues((prev) => ({ ...prev, paysDeNaissance: e.target.value }));
+    const { value } = event.target;
+    setFormValues((prev) => ({
+      ...prev,
+      paysDeNaissance: value,
+      // Réinitialise le champ du pays de naissance si on sélectionne "France"
+      nationnalite: value === "France" ? "Française" : "",
+    }));
+  };
+
+  const handleDateChange = (newValue: string) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      dateDeNaissance: newValue,
+    }));
   };
 
   // Fonction modifiée pour gérer les changements d'autres champs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
+    setFormValues({ ...formValues, [name]: value });
+    validateField(name, value);
   };
+
+  const validateField = (name: string, value: string) => {
+    let error = "";
+    switch (name) {
+      case "nom":
+      case "prenom":
+      case "nationnalite":
+      case "departement":
+      case "paysDeNaissance":
+      case "villeDeNaissance":
+      case "paysDeNaissanceEtranger":
+        error = value.trim() === "" ? "Ce champ est obligatoire." : "";
+        break;
+      case "email":
+        error = !/^\S+@\S+\.\S+$/.test(value) ? "Adresse email invalide." : "";
+        break;
+      case "telephone":
+        error = !/^\d{10}$/.test(value) ? "Numéro de téléphone invalide." : "";
+        break;
+      default:
+        break;
+    }
+    setFormErrors((errors) => ({ ...errors, [name]: error }));
+  };
+
+  useEffect(() => {
+    console.log(formValues);
+    if (
+      (formValues.nom &&
+        formValues.prenom &&
+        formValues.email &&
+        formValues.telephone &&
+        formValues.sexe &&
+        formValues.dateDeNaissance &&
+        formValues.nationnalite &&
+        formValues.departement &&
+        formValues.paysDeNaissance) ||
+      (formValues.dateDeNaissance &&
+        formValues.email &&
+        formValues.email &&
+        formValues.nom &&
+        formValues.prenom &&
+        formValues.paysDeNaissance &&
+        formValues.paysDeNaissanceEtranger &&
+        formValues.sexe &&
+        formValues.telephone &&
+        formValues.villeDeNaissance)
+    ) {
+      dispatch(setUserInfo(formValues));
+    }
+  }, [formValues]);
 
   return (
     <>
@@ -80,6 +160,9 @@ const Coordonnee = () => {
             placeholder="Votre nom"
             className="w-full border hover:border-slate-500 focus:border-slate-500 px-2 py-2 rounded-md border-slate-400 mt-2 text-sm"
           />
+          {formErrors.nom && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.nom}</p>
+          )}
         </div>
         <div className="w-full md:w-[48%]">
           <label htmlFor="prenom" className="text-slate-700 text-sm">
@@ -93,6 +176,9 @@ const Coordonnee = () => {
             placeholder="Votre prénom"
             className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2  hover:border-slate-500 focus:border-slate-500 text-sm"
           />
+          {formErrors.prenom && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.prenom}</p>
+          )}
         </div>
       </div>
       <div className="w-full mt-5">
@@ -140,6 +226,9 @@ const Coordonnee = () => {
             placeholder="Votre téléphone"
             className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2  hover:border-slate-500 focus:border-slate-500 text-sm"
           />
+          {formErrors.telephone && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.telephone}</p>
+          )}
         </div>
         <div className="w-full md:w-[48%]">
           <label htmlFor="email" className="text-slate-700">
@@ -153,6 +242,9 @@ const Coordonnee = () => {
             placeholder="Votre email"
             className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2  hover:border-slate-500 focus:border-slate-500 text-sm"
           />
+          {formErrors.email && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+          )}
         </div>
       </div>
       <div className="w-full flex flex-col mt-5">
@@ -162,6 +254,10 @@ const Coordonnee = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateField", "DateField", "DateField"]}>
             <DateField
+              value={formValues.dateDeNaissance}
+              onChange={(newValue: string | null) =>
+                handleDateChange(newValue as string)
+              }
               format="DD/MM/YYYY"
               sx={{
                 "& .MuiInputBase-input, & .MuiOutlinedInput-input": {
@@ -195,7 +291,7 @@ const Coordonnee = () => {
                 type="radio"
                 value="France"
                 checked={formValues.paysDeNaissance === "France"}
-                onChange={handlePaysNaissanceChange}
+                onChange={handlePaysDeNaissanceChange}
                 className="border h-5 w-5 px-3 py-4 rounded-md border-slate-400 hover:border-slate-500 focus:border-slate-500 text-sm cursor-pointer"
               />
               <h3 className="ml-3 text-sm">France</h3>
@@ -205,7 +301,7 @@ const Coordonnee = () => {
                 type="radio"
                 value="Etranger"
                 checked={formValues.paysDeNaissance === "Etranger"}
-                onChange={handlePaysNaissanceChange}
+                onChange={handlePaysDeNaissanceChange}
                 className="border h-5 w-5 px-3 py-4 rounded-md border-slate-400 hover:border-slate-500 focus:border-slate-500 text-sm cursor-pointer"
               />
               <h3 className="ml-3 text-sm">À l&apos;étranger</h3>
@@ -220,12 +316,19 @@ const Coordonnee = () => {
                   Pays de naissance
                 </label>
                 <input
-                  name="paysDeNaissance"
-                  onChange={handleChange}
                   type="text"
-                  placeholder="Votre pays de naissance"
+                  id="paysDeNaissanceEtranger"
+                  name="paysDeNaissanceEtranger"
+                  value={formValues.paysDeNaissanceEtranger}
+                  onChange={handleChange}
+                  placeholder="Entrez le pays de naissance"
                   className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"
                 />
+                {formErrors.paysDeNaissanceEtranger && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {formErrors.paysDeNaissanceEtranger}
+                  </p>
+                )}
               </div>
               <div className="w-full mt-5 md:w-[47%] w-full">
                 <label
@@ -240,7 +343,13 @@ const Coordonnee = () => {
                   type="text"
                   placeholder="Votre ville de naissance"
                   className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"
+                  value={formValues.villeDeNaissance}
                 />
+                {formErrors.villeDeNaissance && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {formErrors.villeDeNaissance}
+                  </p>
+                )}
               </div>
             </div>
             <div className="w-full mt-5">
@@ -258,6 +367,11 @@ const Coordonnee = () => {
                 placeholder="Nationnalité"
                 className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"
               />
+              {formErrors.nationnalite && (
+                <p className="text-red-500 text-xs mt-1">
+                  {formErrors.nationnalite}
+                </p>
+              )}
             </div>
           </>
         ) : (
@@ -269,10 +383,16 @@ const Coordonnee = () => {
               <input
                 name="departement"
                 onChange={handleChange}
+                value={formValues.departement}
                 type="text"
-                placeholder="Votre ville de naissance"
+                placeholder="Votre département de naissance"
                 className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"
               />
+              {formErrors.departement && (
+                <p className="text-red-500 text-xs mt-1">
+                  {formErrors.departement}
+                </p>
+              )}
             </div>
             <div className="w-full mt-5">
               <label
@@ -289,6 +409,11 @@ const Coordonnee = () => {
                 placeholder="Nationnalité"
                 className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"
               />
+              {formErrors.nationnalite && (
+                <p className="text-red-500 text-xs mt-1">
+                  {formErrors.nationnalite}
+                </p>
+              )}
             </div>
           </>
         )}

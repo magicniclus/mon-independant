@@ -15,6 +15,13 @@ const initialState = {
     paysDeNaissanceEtranger: "",
     villeDeNaissance: "",
   },
+  userActivite: {
+    activite: "",
+    activitePrincipale: "",
+    nomCommercial: "",
+    activiteNonSalarie: "",
+    debutActivite: "",
+  },
   stepCreationCompte: 1,
 };
 
@@ -25,6 +32,13 @@ const userSlice = createSlice({
     setUserInfo(state, action: PayloadAction<typeof initialState.userInfo>) {
       // Mise à jour de chaque champ dans l'état
       Object.assign(state.userInfo, action.payload);
+    },
+    setActiviteDetails(
+      state,
+      action: PayloadAction<Partial<typeof initialState.userActivite>>
+    ) {
+      // Ce reducer est un exemple de la manière dont vous pourriez mettre à jour les détails d'activité
+      Object.assign(state.userActivite, action.payload);
     },
     initializeCompte(state) {
       // Réinitialisation de l'état
@@ -42,7 +56,12 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserInfo, incrementStep, decrementStep, initializeCompte } =
-  userSlice.actions;
+export const {
+  setUserInfo,
+  setActiviteDetails,
+  incrementStep,
+  decrementStep,
+  initializeCompte,
+} = userSlice.actions;
 
 export default userSlice.reducer;

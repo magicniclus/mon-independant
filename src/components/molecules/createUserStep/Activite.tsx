@@ -1,6 +1,7 @@
 "use client";
 
 import { setActiviteDetails } from "@/redux/createUserSlice";
+import { CalendarIcon } from "@heroicons/react/20/solid";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -745,11 +746,12 @@ const Activite = () => {
   return (
     <>
       <div className="flex justify-between flex-col">
-        <div className="w-full flex flex-col mt-5">
+        <div className="w-full flex flex-col">
           <label htmlFor="debutActivite" className="text-slate-700 text-sm">
             Date de début d&apos;activité
           </label>
-          <div className="w-full flex flex-col">
+          <div className="w-full flex flex-col relative">
+            <CalendarIcon className="absolute top-3.5 right-3 text-slate-500 h-6 w-6 " />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer
                 components={["DateField", "DateField", "DateField"]}
@@ -762,12 +764,16 @@ const Activite = () => {
                   maxDate={maxDate} // Converti en Date JavaScript
                   sx={{
                     "& .MuiInputBase-root, & .MuiOutlinedInput-root": {
-                      width: "100%", // Assure que le composant s'étend à 100%
-                      border: "0.05px solid #94a3b8",
+                      width: "100%",
+                      border: formErrors.debutActivite
+                        ? "1px solid red"
+                        : "0.05px solid #94a3b8", // Conditionnellement ajuster la bordure ici
                       borderRadius: "0.4rem",
                       color: "#64748b",
                       "&:hover": {
-                        borderColor: "#64748b",
+                        borderColor: formErrors.debutActivite
+                          ? "red"
+                          : "#64748b",
                       },
                       "&.Mui-focused": {
                         borderColor: "#64748b",

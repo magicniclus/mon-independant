@@ -344,7 +344,10 @@ const Coordonnee = () => {
           <>
             <div className="flex md:flex-row flex-col justify-between">
               <div className="w-full mt-5 md:w-[47%] w-full">
-                <label htmlFor="paysDeNaissance" className="text-slate-700">
+                <label
+                  htmlFor="paysDeNaissance"
+                  className="text-slate-700 text-sm"
+                >
                   Pays de naissance
                 </label>
                 <input
@@ -415,7 +418,10 @@ const Coordonnee = () => {
               <input
                 name="departement"
                 onChange={handleChange}
-                value={formValues.departement}
+                value={
+                  formValues.departement.charAt(0).toUpperCase() +
+                  formValues.departement.slice(1).toLowerCase()
+                }
                 type="text"
                 placeholder="Votre département de naissance"
                 className="w-full border px-2 py-2 rounded-md border-slate-400 mt-2 hover:border-slate-500 focus:border-slate-500 text-sm"

@@ -84,7 +84,7 @@ const Step = () => {
               Pourquoi ces demarches ?
             </AccordionTrigger>
             <AccordionContent className="text-start text-sm">
-              Pour vous assister au cours de votre demande d’immatriculation
+              Pour vous assister au cours de votre demande d’immatriculation.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

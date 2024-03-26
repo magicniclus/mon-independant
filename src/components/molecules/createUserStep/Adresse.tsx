@@ -129,9 +129,9 @@ const Adresse = () => {
             {formErrors.complementAdresse}
           </p>
         )}
-        <p className="text-xs font-light w-10/12 mt-1">
+        {/* <p className="text-xs font-light w-10/12 mt-1">
           L’adresse du domicile sera votre adresse pour toute correspondance.
-        </p>
+        </p> */}
       </div>
       <div className="w-full mt-5 flex">
         <input type="checkbox" id="CGV" name="CGV" />

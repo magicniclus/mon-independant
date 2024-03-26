@@ -19,7 +19,7 @@ const NavBarLanding = () => {
       `}</style>
       <header className="bg-white text-slate-700">
         <nav
-          className="mx-auto flex max-w-6xl items-center p-6 lg:px-8"
+          className="mx-auto flex max-w-6xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
           <div className="flex">
@@ -32,7 +32,7 @@ const NavBarLanding = () => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-center relative lign mx-10">
+          <div className="flex items-center justify-center relative">
             <PhoneIcon className="h-6 w-6 text-green-700 mr-4" />
             <div className="flex flex-col justify-between">
               <a
@@ -41,7 +41,10 @@ const NavBarLanding = () => {
               >
                 09 79 79 79 03
               </a>
-              <p className="text-xs">Du lundi au vendredi - de 9h à 19h</p>
+              <p className="text-xs">
+                Du lundi au vendredi <br />
+                de 9h à 19h
+              </p>
             </div>
           </div>
         </nav>

@@ -1,6 +1,6 @@
 "use client";
 
-import { incrementStep, initializeCompte } from "@/redux/createUserSlice";
+import { incrementStep } from "@/redux/createUserSlice";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,12 +18,9 @@ const StepManager = () => {
     (state: RootState) => state.createUser.userInfo
   );
 
-  const initializeDispatch = () => {
-    if (formValues.prenom && formValues.nom && formValues.email) return;
-    dispatch(initializeCompte());
-  };
-
-  initializeDispatch();
+  const formValuesActivite = useSelector(
+    (state: RootState) => state.createUser.userActivite
+  );
 
   const handleDisabled = () => {
     switch (step) {
@@ -60,14 +57,20 @@ const StepManager = () => {
         }
         break;
       case 2:
-        setDisabled(false);
+        if (
+          formValuesActivite.activite !== "" &&
+          formValuesActivite.debutActivite !== "" &&
+          formValuesActivite.activitePrincipale !== "" &&
+          formValuesActivite.activiteNonSalarie !== ""
+        )
+          setDisabled(false);
+        // Active le bouton si toutes les conditions sont remplies
+        else setDisabled(true); // Désactive le bouton si une des conditions n'est pas remplie
         break;
       default:
         break;
     }
   };
-
-  useEffect(() => {}, [step]);
 
   const handleForm = () => {
     switch (step) {
@@ -86,7 +89,7 @@ const StepManager = () => {
 
   useEffect(() => {
     handleDisabled();
-  }, [formValues]);
+  }, [formValues, formValuesActivite]);
 
   return (
     <section className="md:w-7/12 w-full">

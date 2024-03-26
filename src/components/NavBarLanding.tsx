@@ -41,10 +41,7 @@ const NavBarLanding = () => {
               >
                 09 79 79 79 03
               </a>
-              <p className="text-xs">
-                Du lundi au vendredi <br />
-                de 9h à 19h
-              </p>
+              <p className="text-xs">Du lundi au vendredi - de 9h à 19h</p>
             </div>
           </div>
         </nav>

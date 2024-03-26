@@ -5,6 +5,7 @@ import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Activite from "./molecules/createUserStep/Activite";
+import Adresse from "./molecules/createUserStep/Adresse";
 import Coordonnee from "./molecules/createUserStep/Coordonnee";
 
 const StepManager = () => {
@@ -78,6 +79,8 @@ const StepManager = () => {
         return <Coordonnee />;
       case 2:
         return <Activite />;
+      case 3:
+        return <Adresse />;
       default:
         break;
     }

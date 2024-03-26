@@ -1,6 +1,7 @@
 "use client";
 
 import { setUserInfo } from "@/redux/createUserSlice";
+import { CalendarIcon } from "@heroicons/react/20/solid";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -12,6 +13,8 @@ import { RootState } from "../../../redux/store";
 
 const Coordonnee = () => {
   const dispatch = useDispatch();
+
+  const eighteenYearsAgo = dayjs().subtract(18, "years").format("YYYY-MM-DD");
 
   const userNom = useSelector(
     (state: RootState) => state.createUser.userInfo.nom
@@ -31,7 +34,7 @@ const Coordonnee = () => {
     email: "",
     telephone: "",
     sexe: "",
-    dateDeNaissance: "",
+    dateDeNaissance: eighteenYearsAgo,
     nationnalite: "Française",
     departement: "",
     paysDeNaissance: "France",
@@ -278,34 +281,36 @@ const Coordonnee = () => {
         <label htmlFor="dateDeNaissance" className="text-slate-700 text-sm">
           Date de naissance
         </label>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DateField", "DateField", "DateField"]}>
-            <DateField
-              value={formValues.dateDeNaissance}
-              onChange={(newValue: string | null) =>
-                handleDateChange(newValue as string)
-              }
-              format="DD/MM/YYYY"
-              sx={{
-                "& .MuiInputBase-input, & .MuiOutlinedInput-input": {
-                  padding: "8px !important", // Ajustement ici
-                  // Si le style ne s'applique pas, il peut être nécessaire d'inspecter d'autres styles conflictuels
-                },
-                "& .MuiInputBase-root": {
-                  border: "0.05px solid #94a3b8",
-                  borderRadius: "0.4rem",
-                  color: "#64748b",
-                  "&:hover": {
-                    borderColor: "#64748b",
+        <div className="relative">
+          <CalendarIcon className="absolute top-3.5 right-3 text-slate-500 h-6 w-6 " />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DateField", "DateField", "DateField"]}>
+              <DateField
+                value={dayjs(formValues.dateDeNaissance)} // Convertissez la chaîne en objet dayjs ici
+                onChange={(newValue: string | null) =>
+                  handleDateChange(newValue as string)
+                }
+                format="DD/MM/YYYY"
+                sx={{
+                  "& .MuiInputBase-input, & .MuiOutlinedInput-input": {
+                    padding: "8px !important",
                   },
-                  "&:focus": {
-                    borderColor: "#64748b",
+                  "& .MuiInputBase-root": {
+                    border: "0.05px solid #94a3b8",
+                    borderRadius: "0.4rem",
+                    color: "#64748b",
+                    "&:hover": {
+                      borderColor: "#64748b",
+                    },
+                    "&:focus": {
+                      borderColor: "#64748b",
+                    },
                   },
-                },
-              }}
-            />
-          </DemoContainer>
-        </LocalizationProvider>
+                }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </div>
         {formErrors.dateDeNaissance && (
           <p className="text-red-500 text-xs mt-1">
             {formErrors.dateDeNaissance}

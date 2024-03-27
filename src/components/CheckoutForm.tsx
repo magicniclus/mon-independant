@@ -3,6 +3,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { StripeElementChangeEvent } from "@stripe/stripe-js";
 import { FormEvent, useEffect, useState } from "react";
 
 export default function CheckoutForm() {
@@ -11,6 +12,7 @@ export default function CheckoutForm() {
 
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPaymentReady, setIsPaymentReady] = useState<boolean>(false);
 
   useEffect(() => {
     if (!stripe) {
@@ -26,15 +28,9 @@ export default function CheckoutForm() {
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      if (!paymentIntent) {
-        setMessage("Payment Intent not found.");
-        return;
-      }
-
-      switch (paymentIntent.status) {
+      switch (paymentIntent?.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
-          // Ajoute une redirection ici
           window.location.href = "/merci";
           break;
         case "processing":
@@ -54,8 +50,6 @@ export default function CheckoutForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -64,51 +58,59 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: "http://localhost:3000/merci",
       },
     });
 
     if (error) {
-      if (error.type === "card_error" || error.type === "validation_error") {
-        setMessage(error.message || "");
-      } else {
-        setMessage("An unexpected error occurred.");
-      }
+      setMessage(error.message || "An unexpected error occurred.");
+    } else {
+      setMessage("Payment processed successfully!");
     }
 
     setIsLoading(false);
   };
 
-  const paymentElementOptions = {
-    layout: "tabs",
-  };
+  useEffect(() => {
+    if (!elements) return;
+
+    const paymentElement = elements.getElement(PaymentElement) as any;
+    if (!paymentElement) {
+      console.log("PaymentElement not found");
+      return;
+    }
+
+    const handlePaymentElementChange = (event: StripeElementChangeEvent) => {
+      setIsPaymentReady(event.complete);
+    };
+
+    // Utiliser les types corrects pour les callbacks
+    paymentElement.on("change", handlePaymentElementChange);
+
+    return () => {
+      paymentElement.off("change", handlePaymentElementChange);
+    };
+  }, [elements]);
 
   return (
-    <>
-      <h2 className="mb-7 text-center bg-green-700 text-white rounded-md py-2 px-1">
-        {" "}
-        Paiement des frais à l’inscription au régime d’auto-entrepreneur :{" "}
-        <span className="font-bold">99,00 €</span>
-      </h2>
-      <form id="payment-form" onSubmit={handleSubmit}>
-        <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <button
-          disabled={isLoading || !stripe || !elements}
-          id="submit"
-          className="text-white w-full py-2 rounded-md mt-10 hover:bg-green-700/70 transition duration-150 easeInOut bg-green-700"
-        >
-          <span id="button-text">
-            {isLoading ? (
-              <div className="spinner" id="spinner"></div>
-            ) : (
-              "DEVENIR AUTO-ENTREPRENEUR"
-            )}
-          </span>
-        </button>
-        {/* Afficher tous les messages d'erreur ou de succès */}
-        {message && <div id="payment-message">{message}</div>}
-      </form>
-    </>
+    <form id="payment-form" onSubmit={handleSubmit}>
+      <PaymentElement id="payment-element" />
+      <button
+        disabled={isLoading || !stripe || !elements || !isPaymentReady}
+        id="submit"
+        className={`text-white w-full py-2 rounded-md mt-10 ${
+          !stripe || !elements || !isPaymentReady
+            ? "bg-green-700/50"
+            : "bg-green-700 hover:bg-green-800"
+        } transition duration-150 ease-in-out`}
+      >
+        {isLoading ? (
+          <div className="spinner" id="spinner"></div>
+        ) : (
+          "DEVENIR AUTO-ENTREPRENEUR"
+        )}
+      </button>
+      {message && <div id="payment-message">{message}</div>}
+    </form>
   );
 }

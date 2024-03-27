@@ -22,6 +22,11 @@ const initialState = {
     activiteNonSalarie: "",
     debutActivite: "",
   },
+  userAdresse: {
+    adresse: "",
+    complementAdresse: "",
+    CGV: false,
+  },
   stepCreationCompte: 1,
 };
 
@@ -39,6 +44,13 @@ const userSlice = createSlice({
     ) {
       // Ce reducer est un exemple de la manière dont vous pourriez mettre à jour les détails d'activité
       Object.assign(state.userActivite, action.payload);
+    },
+    setAdresseDetails(
+      state,
+      action: PayloadAction<Partial<typeof initialState.userAdresse>>
+    ) {
+      // Ce reducer est un exemple de la manière dont vous pourriez mettre à jour les détails d'adresse
+      Object.assign(state.userAdresse, action.payload);
     },
     initializeCompte(state) {
       // Réinitialisation de l'état
@@ -59,6 +71,7 @@ const userSlice = createSlice({
 export const {
   setUserInfo,
   setActiviteDetails,
+  setAdresseDetails,
   incrementStep,
   decrementStep,
   initializeCompte,

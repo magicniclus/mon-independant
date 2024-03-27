@@ -34,7 +34,7 @@ const Coordonnee = () => {
     email: "",
     telephone: "",
     sexe: "",
-    dateDeNaissance: eighteenYearsAgo,
+    dateDeNaissance: "",
     nationnalite: "Française",
     departement: "",
     paysDeNaissance: "France",
@@ -285,8 +285,7 @@ const Coordonnee = () => {
           <CalendarIcon className="absolute top-3.5 right-3 text-slate-500 h-6 w-6 " />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DateField", "DateField", "DateField"]}>
-              <DateField
-                value={dayjs(formValues.dateDeNaissance)} // Convertissez la chaîne en objet dayjs ici
+              <DateField // Convertissez la chaîne en objet dayjs ici
                 onChange={(newValue: string | null) =>
                   handleDateChange(newValue as string)
                 }

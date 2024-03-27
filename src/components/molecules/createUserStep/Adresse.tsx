@@ -1,8 +1,11 @@
+import { setAdresseDetails } from "@/redux/createUserSlice";
 import { MapPinIcon } from "@heroicons/react/20/solid";
 import mapboxgl from "mapbox-gl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Adresse = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState<{
     adresse: string;
     complementAdresse: string;
@@ -71,6 +74,15 @@ const Adresse = () => {
     }));
   };
 
+  const handleCGVChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValues({ ...formValues, CGV: e.target.checked });
+  };
+
+  useEffect(() => {
+    // Dispatcher uniquement si l'adresse est non vide.
+    dispatch(setAdresseDetails(formValues));
+  }, [formValues, dispatch]);
+
   return (
     <div className="flex justify-between flex-col">
       <div className="w-full">
@@ -134,7 +146,13 @@ const Adresse = () => {
         </p> */}
       </div>
       <div className="w-full mt-5 flex">
-        <input type="checkbox" id="CGV" name="CGV" />
+        <input
+          type="checkbox"
+          id="CGV"
+          name="CGV"
+          checked={formValues.CGV}
+          onChange={handleCGVChange}
+        />
         <label htmlFor="CGV" className="text-xs font-light ml-3">
           J&apos;accepte les{" "}
           <a href="#" className="text-slate-600 font-semibold">

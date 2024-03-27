@@ -109,9 +109,9 @@ const StepManager = () => {
 
   return (
     <section className="md:w-7/12 w-full">
-      <form className="px-6 lg:px-8 text-slate-700 flex flex-col">
-        {handleForm()}
-        {step < 4 && (
+      {step < 4 && (
+        <form className="px-6 lg:px-8 text-slate-700 flex flex-col">
+          {handleForm()}
           <button
             type="button"
             disabled={disabled}
@@ -122,8 +122,13 @@ const StepManager = () => {
           >
             Continuer
           </button>
-        )}
-      </form>
+        </form>
+      )}
+      {step === 4 && (
+        <>
+          <Checkout />
+        </>
+      )}
     </section>
   );
 };

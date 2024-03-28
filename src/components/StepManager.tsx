@@ -1,8 +1,8 @@
 "use client";
 
 import { incrementStep } from "@/redux/createUserSlice";
-import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
+import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import Activite from "./molecules/createUserStep/Activite";
 import Adresse from "./molecules/createUserStep/Adresse";

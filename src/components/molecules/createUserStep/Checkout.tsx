@@ -37,12 +37,15 @@ const Checkout = () => {
 
   const [open, setOpen] = useState(false);
 
-  const dateActuelle = new Date().toLocaleDateString("fr-FR");
-
-  const heureActuelle = new Date().toLocaleTimeString("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const [dateActuelle, setDateActuelle] = useState(() =>
+    new Date().toLocaleDateString("fr-FR")
+  );
+  const [heureActuelle, setHeureActuelle] = useState(() =>
+    new Date().toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
 
   React.useEffect(() => {
     // Créer un PaymentIntent dès que la page charge
@@ -55,8 +58,12 @@ const Checkout = () => {
       .then((data) => setClientSecret(data.clientSecret));
   }, []);
 
+  const formatDate = (dateString: string) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
   const appearance = {
-    // theme: "stripe",
     variables: {
       colorPrimary: "#3d546c",
     },
@@ -64,11 +71,6 @@ const Checkout = () => {
   const options = {
     clientSecret,
     appearance,
-  };
-
-  const formatDate = (dateString) => {
-    const [year, month, day] = dateString.split("-");
-    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -93,14 +95,14 @@ const Checkout = () => {
           className="mt-3 w-[90%] text-slate-400 mx-auto flex justify-between items-center cursor-pointer"
           onClick={(e) => setOpen((e) => !e)}
         >
-          <h3 className="flex items-center">
+          <h3 className="flex items-center text-sm">
             <span className="w-5 h-5 flex justify-center items-center rounded-full border border-slate-300 mr-2 items-center">
               ?
             </span>
             Voir mes informations
           </h3>
           <ChevronDownIcon
-            className={`h-7 w-7 transition-all duration-150 easeInOut ${
+            className={`h-5 w-5 transition-all duration-150 easeInOut ${
               open ? "transform rotate-180" : ""
             }`}
           />
